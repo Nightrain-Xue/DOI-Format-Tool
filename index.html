@@ -59,7 +59,8 @@
 
     <label for="styleSelect">选择期刊格式:</label>
     <select id="styleSelect">
-        <option value="apa">APA</option>
+        <option value="china-national-standard-gb-t-7714-2015-numeric">🇨🇳 GB/T 7714 (中文国标格式)</option>
+        <option value="apa">🇺🇸 APA (英文通用)</option>
         <option value="modern-language-association">MLA</option>
         <option value="ieee">IEEE</option>
         <option value="chicago-author-date">Chicago</option>
@@ -86,14 +87,14 @@
             return;
         }
 
-        // 清理 DOI 字符串，防止用户复制了多余的网址前缀
+        // 清理 DOI 字符串（防止复制了多余的网址前缀）
         const cleanDoi = doi.replace(/^(https?:\/\/)?(dx\.)?doi\.org\//i, '');
         
         resultBox.innerHTML = '<span class="loading">正在查询数据库...</span>';
         copyBtn.style.display = 'none';
 
         try {
-            // 向 DOI 官方解析库发送请求，利用 Content Negotiation 直接获取排版好的文本
+            // 向 DOI 官方解析库发送请求，Content Negotiation 直接获取排版好的文本
             const response = await fetch(`https://doi.org/${cleanDoi}`, {
                 headers: {
                     'Accept': `text/x-bibliography; style=${style}`
